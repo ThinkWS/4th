@@ -17,5 +17,7 @@ public interface AccountRepository extends JpaRepository<Account, Long>, Queryds
 
     Account findByNickname(String nickname); // 주어진 닉네임으로 계정을 찾는 메소드
 
-    @EntityGraph(attributePaths = {"tags", "zones"}) // 지연 로딩을 위한 엔티티 그래프를 설정
+    @EntityGraph(attributePaths = {"tags", "zones"})
+        // 지연 로딩을 위한 엔티티 그래프를 설정
     Account findAccountWithTagsAndZonesById(Long id); // 주어진 ID로 계정을 검색하고, 연관된 태그와 지역 정보를 함께 로딩하는 메소드
+}

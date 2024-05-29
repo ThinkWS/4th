@@ -18,11 +18,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token", "/email-login", "/check-email-login", "/login-link").permitAll()
                         .requestMatchers(HttpMethod.GET, "/profile/*").permitAll() // GET 방식으로 프로필 조회 요청을 허용
-                        .anyRequest().authenticated() // 나머지 요청은 인증이 필요
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll()
+                        .defaultSuccessUrl("/", true)
                 )
                 .logout(logout -> logout
                         .permitAll()
@@ -33,7 +34,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public ModelMapper modelMapper() {
+    public ModelMapper securitymodelMapper() {
         return new ModelMapper();
 
 
