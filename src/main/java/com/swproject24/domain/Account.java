@@ -62,6 +62,7 @@ public class Account {
 
     }
 
+    // 회원가입 완료 메소드
     public void completeSignUp() {
         this.emailVerified = true;
         this.joinedAt = LocalDateTime.now();
