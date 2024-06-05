@@ -4,8 +4,10 @@ import com.swproject24.domain.Account;
 import org.springframework.data.jpa.repository.EntityGraph; // JPA 엔티티 그래프를 사용하기 위한 import 문입니다.
 import org.springframework.data.jpa.repository.JpaRepository; // JpaRepository를 상속하기 위한 import 문입니다.
 import org.springframework.data.querydsl.QuerydslPredicateExecutor; // QuerydslPredicateExecutor를 상속하기 위한 import 문입니다.
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional; // 트랜잭션 관련 어노테이션을 사용하기 위한 import 문입니다.
 
+@Repository
 @Transactional(readOnly = true) // 이 인터페이스의 모든 메소드는 읽기 전용으로 트랜잭션을 수행
 public interface AccountRepository extends JpaRepository<Account, Long>, QuerydslPredicateExecutor<Account> {
 
