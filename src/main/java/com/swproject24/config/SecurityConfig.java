@@ -16,8 +16,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token", "/email-login", "/check-email-login", "/login-link").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/profile/*").permitAll() // GET 방식으로 프로필 조회 요청을 허용
+                        .requestMatchers("/", "/login", "/sign-up", "/check-email", "/check-email-token", "/email-login", "/check-email-login", "/login-link", "/error").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/profile/*").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -36,7 +36,5 @@ public class SecurityConfig {
     @Bean
     public ModelMapper securitymodelMapper() {
         return new ModelMapper();
-
-
     }
 }

@@ -19,7 +19,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class SettingsController {
 
-
     private static final String SETTINGS_PROFILE_URL = "/settings/profile";
     private static final String SETTINGS_PROFILE_VIEW_NAME = "settings/profile";
     private final AccountService accountService;
@@ -28,24 +27,19 @@ public class SettingsController {
     public String profileUpdateForm(@CurrentUser Account account, Model model) {
         model.addAttribute(account);
         model.addAttribute(new Profile(account));
-
-
+        model.addAttribute("hasNotification", account != null && account.hasNotification() != null ? account.hasNotification() : false);
         return SETTINGS_PROFILE_VIEW_NAME;
-
     }
 
-    @PostMapping("/settings/prrfile")
+    @PostMapping("/settings/profile")
     public String profileUpdate(@CurrentUser Account account, @Valid Profile profile, Errors errors, Model model, RedirectAttributes attributes) {
         if (errors.hasErrors()) {
             model.addAttribute(account);
             return SETTINGS_PROFILE_VIEW_NAME;
         }
 
-
         accountService.updateProfile(account, profile);
-        attributes.addFlashAttribute("message","프로필을 수정했습니다");
+        attributes.addFlashAttribute("message", "프로필을 수정했습니다");
         return "redirect:" + SETTINGS_PROFILE_URL;
-
     }
-
 }
