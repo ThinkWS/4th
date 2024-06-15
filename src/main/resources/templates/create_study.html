@@ -1,86 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>스터디 모집 글 작성</title>
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Study</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <style>
+        .datepicker {
+            z-index: 10000 !important; /* Ensure the datepicker appears above other elements */
+        }
+    </style>
 </head>
 <body>
-<nav th:replace="fragments.html :: main-nav"></nav>
-
 <div class="container mt-5">
-    <h1>스터디 모집 글 작성</h1>
-    <form th:action="@{/studies}" th:object="${studyForm}" method="post" class="needs-validation" novalidate>
-        <div class="form-group">
-            <label for="title">제목</label>
-            <input type="text" class="form-control" id="title" th:field="*{title}" required>
-            <div class="invalid-feedback">
-                제목을 입력하세요.
-            </div>
+    <h1>Create Study</h1>
+    <form action="/studies/write" method="post">
+        <div class="mb-3">
+            <label for="title" class="form-label">제목</label>
+            <input type="text" class="form-control" id="title" name="title" required>
         </div>
-        <div class="form-group">
-            <label for="field">내용</label>
-            <textarea class="form-control" id="field" th:field="*{field}" rows="3" required></textarea>
-            <div class="invalid-feedback">
-                내용을 입력하세요.
-            </div>
+        <div class="mb-3">
+            <label for="field" class="form-label">내용</label>
+            <textarea class="form-control" id="field" name="field" rows="3" required></textarea>
         </div>
-        <div class="form-group">
-            <label for="location">장소</label>
-            <input type="text" class="form-control" id="location" th:field="*{location}" required>
+        <div class="mb-3">
+            <label for="location" class="form-label">장소</label>
+            <input type="text" class="form-control" id="location" name="location" required>
         </div>
-        <div class="form-group">
-            <label for="groupSize">모집인원</label>
-            <input type="number" class="form-control" id="groupSize" th:field="*{groupSize}" required>
-            <div class="invalid-feedback">
-                모집인원을 입력하세요.
-            </div>
+        <div class="mb-3">
+            <label for="groupSize" class="form-label">모집 인원</label>
+            <input type="number" class="form-control" id="groupSize" name="groupSize" required>
         </div>
-        <div class="form-group">
-            <label for="feeType">유/무료 여부</label>
-            <select class="form-control" id="feeType" th:field="*{feeType}" required>
-                <option value="" disabled>선택하세요...</option>
+        <div class="mb-3">
+            <label for="feeType" class="form-label">유/무료 여부</label>
+            <select class="form-control" id="feeType" name="feeType" required>
                 <option value="FREE">무료</option>
                 <option value="PAID">유료</option>
             </select>
-            <div class="invalid-feedback">
-                유/무료 여부를 선택하세요.
-            </div>
         </div>
-        <div class="form-group">
-            <label for="studyStartDate">스터디 시작일</label>
-            <input type="date" class="form-control" id="studyStartDate" th:field="*{studyStartDate}" required>
+        <div class="mb-3">
+            <label for="studyStartDate" class="form-label">스터디 시작일</label>
+            <input type="text" class="form-control datepicker" id="studyStartDate" name="studyStartDate" required>
         </div>
-        <div class="form-group">
-            <label for="studyEndDate">스터디 종료일</label>
-            <input type="date" class="form-control" id="studyEndDate" th:field="*{studyEndDate}" required>
+        <div class="mb-3">
+            <label for="studyEndDate" class="form-label">스터디 종료일</label>
+            <input type="text" class="form-control datepicker" id="studyEndDate" name="studyEndDate" required>
         </div>
-        <button type="submit" class="btn btn-primary">스터디 개설</button>
-    </form>git
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
 
-<footer th:replace="fragments.html :: footer"></footer>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
+    $(function() {
+        $(".datepicker").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+    });
 </script>
-
-<script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
